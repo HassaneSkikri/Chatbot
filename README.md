@@ -1,8 +1,8 @@
-# Voice-Assisted Chatbot for the Visually Impaired
+# Chatbot Project
 
-## Overview
+## Summary
 
-Our project is dedicated to designing an innovative `chatbot equipped with speech recognition capabilities` to empower **blind** individuals. The core objective is to facilitate seamless interaction with technology and others around them. By harnessing advanced speech-to-text and natural language processing technologies, our chatbot not only understands and responds to verbal queries but also identifies distinct speakers. This feature significantly enhances the conversational experience by recognizing when different individuals speak, thereby creating a more intuitive and inclusive communication aid for those with visual impairments.
+This project is focused on building a chatbot using Python, enhancing my coding skills and deepening my understanding of concepts like tokenization, natural language processing, and machine learning. Through developing this chatbot, I've gained valuable insights into practical AI applications. Join me in exploring the intricacies of chatbot technology!
 
 
 ## Getting Started
