@@ -2,7 +2,7 @@ import random
 import json
 import torch
 from model import Modeling
-from utils import bag_of_words, tokenize
+from utils import bag_of_words, tokenize,  speak 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -47,6 +47,9 @@ def get_response(msg):
         for intent in intents["intents"]:
             if tag == intent["tag"]:
                 return random.choice(intent['responses'])
-            
-    return  "I'm sorry, I didn't get that. Please try again."
+                speak(response) 
+                return response
+    return "I'm sorry, I didn't get that. Please try again."
+
+
 
