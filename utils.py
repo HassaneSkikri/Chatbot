@@ -6,7 +6,6 @@ import speech_recognition as sr
 
 import os
 import numpy as np
-from pyAudioAnalysis import audioBasicIO
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 
 
@@ -51,34 +50,41 @@ def listen(): # Function to convert speech to text
     except sr.RequestError as e:
         print(f"Could not request results from Google Speech Recognition service; {e}")
         return "There was an error with the speech service."
-import os
+
 import numpy as np
+import os
 import librosa
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+
+def extract_features(audio_path):
+    audio, sample_rate = librosa.load(audio_path, sr=None)
+    mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
+    return np.mean(mfccs.T, axis=0)
 
 def train_model(dataset_path):
     features, labels = [], []
     label_names = []
 
     # Process each file in the dataset
-    for file in os.listdir(dataset_path):
-        if file.endswith(".mp3"):
-            speaker_name = file.split('.')[0]  # Assuming filename is 'speakername.mp3'
-            label_names.append(speaker_name)
-            file_path = os.path.join(dataset_path, file)
+    for root, dirs, files in os.walk(dataset_path):
+        for file in files:
+            if file.endswith(".mp3"):
+                speaker_name = os.path.basename(root)
+                if speaker_name not in label_names:
+                    label_names.append(speaker_name)
+                
+                audio_path = os.path.join(root, file)
+                mfcc_features = extract_features(audio_path)
+                
+                features.append(mfcc_features)
+                labels.append(label_names.index(speaker_name))
 
-            # Load the audio file and extract MFCC features
-            audio, sample_rate = librosa.load(file_path, sr=None)  # sr=None to maintain original sample rate
-            mfccs = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=13)
-            mean_features = np.mean(mfccs.T, axis=0)  # Taking the mean across time frames
-            
-            features.append(mean_features)
-            labels.append(len(label_names) - 1)
 
     # Train a simple LDA model
     model = LDA()
     model.fit(features, labels)
     return model, label_names
+
 
 
 def identify_speaker(audio_path, model, label_names):
