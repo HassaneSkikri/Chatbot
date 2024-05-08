@@ -113,3 +113,9 @@ Add new `tag`, `patterns`, and `responses` to personalize the chatbot's interact
     words = ["hi", "hello", "I", "you", "bye", "thank", "cool"]
     bog   = [  0 ,    1 ,    0 ,   1 ,    0 ,    0 ,      0]
 ***
+
+
+pip install pyttsx3 SpeechRecognition
+
+pip install speechbrain
+
