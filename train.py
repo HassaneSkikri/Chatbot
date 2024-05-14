@@ -4,9 +4,9 @@
 import json
 from utils import tokenize, stem, bag_of_words
 import numpy as np
-import torch #  This is the main namespace for the majority of the functions and classes in PyTorch. It provides tensor
-import torch.nn as nn #  sub-module that contains classes and functions to build neural networks. 
-from torch.utils.data import Dataset, DataLoader # sub-module provides many classes and functions to make data loading and preprocessing more convenient
+import torch 
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader 
 from model import Modeling
 
 # loading intents from json file
@@ -17,7 +17,7 @@ with open('intents.json','r') as f:
 
 all_words = []
 tags = []
-xy = [] #The xy list contains pairs of tokenized sentences and tags
+xy = [] #  Note: The xy list contains pairs of tokenized sentences and tags
 
 # tokenized the sentences
 # <_________________________________>
@@ -54,10 +54,8 @@ for (pattern_sentence,tag)in xy:
 X_train = np.array(X_train)
 y_train = np.array(y_train)
 
-
 # Chat Dataset
 # <_________________________________>
-
 
 class ChatDataset(Dataset):
     def __init__(self, X, y):
