@@ -1,8 +1,25 @@
-# Chatbot Project
+# VoiceBot: A Multifunctional Voice-Enabled Chatbot
 
-## Summary
+## Overview
 
-This project is focused on building a chatbot using Python, enhancing my coding skills and deepening my understanding of concepts like tokenization, natural language processing, and machine learning. Through developing this chatbot, I've gained valuable insights into practical AI applications. Join me in exploring the intricacies of chatbot technology!
+VoiceBot is an advanced chat application designed to demonstrate integrated functionalities of modern chatbots including text-based chatting, voice commands, text-to-speech responses, and speaker identification. This project combines Python programming, natural language processing, machine learning, and digital signal processing to create a user-friendly chatbot capable of interacting with users through both text and voice.
+
+## Features
+
+- **Text Chat**: Interact using typed text with responses generated from a trained model.
+- **Voice Commands**: Convert spoken language into text using speech recognition.
+- **Text-to-Speech**: Hear responses spoken back to you, enhancing the interactive experience.
+- **Speaker Identification**: Identify and verify the speaker's identity through voice analysis.
+
+## Technologies Used
+
+- **Python**: Primary programming language.
+- **Tkinter**: GUI toolkit for Python to create the application interface.
+- **PyTorch**: For implementing and training machine learning models.
+- **SpeechRecognition**: For converting spoken language into text.
+- **pyttsx3**: A text-to-speech conversion library in Python.
+- **Librosa**: For processing audio signals and extracting features.
+- **Sklearn**: For machine learning models used in speaker identification.
 
 
 ## Getting Started
@@ -22,23 +39,11 @@ conda activate ./venv
 
 ```
 
-#### 3. install PyTorch and dependecies 
+#### 3. install PyTorch
 
 - For Installation of PyTorch see official [website](https://pytorch.org/).
 
-```python
-pip3 install torch torchvision torchaudio
-```
-- also install **nltk** :
 
-```bash	
-pip install nltk
-```
-If you get an error during the first run, you also need to install nltk.tokenize.punkt: Run this once in your terminal:
-
-``` bash
- nltk.download('punkt')
- ```
 ## Running this project
 
 ### Begin by training your model:
@@ -52,6 +57,12 @@ python train.py
 
 ```bash
 python chat.py
+```
+
+### the final step is to start the GUI for the VoiceBot:
+
+```bash
+python3 app.py
 ```
 
 ## Customization
@@ -114,8 +125,4 @@ Add new `tag`, `patterns`, and `responses` to personalize the chatbot's interact
     bog   = [  0 ,    1 ,    0 ,   1 ,    0 ,    0 ,      0]
 ***
 
-
-pip install pyttsx3 SpeechRecognition
-
-pip install speechbrain
 
