@@ -126,3 +126,4 @@ Add new `tag`, `patterns`, and `responses` to personalize the chatbot's interact
 ***
 
 
+##### the dataset that i use to train the model for "identify speaker" part is very larg so you can download it  [here](https://www.kaggle.com/datasets/vjcalling/speaker-recognition-audio-dataset)
