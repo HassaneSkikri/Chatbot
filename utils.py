@@ -50,7 +50,7 @@ def speak(text):
 
 #_______________________________________________________________________________________________________________________#
 # Function to convert speech to text
-def listen(): 
+def listen():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
@@ -59,6 +59,9 @@ def listen():
     try:
         text = r.recognize_google(audio)
         print("You said: " + text)
+        # Save the audio to a WAV file
+        with open("last_recorded_audio.wav", "wb") as f:
+            f.write(audio.get_wav_data())
         return text
     except sr.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
@@ -66,6 +69,7 @@ def listen():
     except sr.RequestError as e:
         print(f"Could not request results from Google Speech Recognition service; {e}")
         return "There was an error with the speech service."
+
 
 
 # identify speaker part:
@@ -136,14 +140,16 @@ def load_model(model_path):
 
 #____________________________________________________________________________________________________________________#
 
+#just for the first time to train the model and save it
 
 # if __name__ == "__main__":
-    # dataset_path = 'voice_dataset'
-    # features, labels = load_dataset(dataset_path)
-    # model = train_model(features, labels)
-    # Optionally, save the model to a file for later use
-    # with open('model.pkl', 'wb') as f:
-    #     pickle.dump(model, f)
-    # model = load_model('model.pkl')
-    # test_audio_path = 'voice_dataset\Speaker0040\Speaker0040_000.wav'
-    # print("Identified Speaker:", identify_speaker(model, test_audio_path))
+#     dataset_path = 'voice_dataset'
+#     features, labels = load_dataset(dataset_path)
+#     model = train_model(features, labels)
+#     with open('model.pkl', 'wb') as f:
+#         pickle.dump(model, f)
+#     model = load_model('model.pkl')
+
+#     # test the model 
+#     test_audio_path = 'voice_dataset\Speaker0040\Speaker0040_000.wav'
+#     print("Identified Speaker:", identify_speaker(model, test_audio_path))

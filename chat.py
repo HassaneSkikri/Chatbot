@@ -1,9 +1,12 @@
+#_______________________________________________________________________________________________________________________#
+# importing the necessary liberaries #
 import random 
 import json
 import torch
 from model import Modeling
 from utils import bag_of_words, tokenize,  speak 
 
+#_______________________________________________________________________________________________________________________#
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open('intents.json','r') as f:
@@ -12,6 +15,7 @@ with open('intents.json','r') as f:
 FILE = 'data.pth'
 data = torch.load(FILE)
 
+#_______________________________________________________________________________________________________________________#
 input_size = data['input_size']
 hidden_size = data['hidden_size']
 output_size = data['output_size']
@@ -19,15 +23,14 @@ all_words = data['all_words']
 tags = data['tags']
 model_state = data['model_state']
 
-
+#_______________________________________________________________________________________________________________________#
 model = Modeling(input_size,hidden_size,output_size).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
-
-
 bot_name = "hassane"
 
+#_______________________________________________________________________________________________________________________#
 def get_response(msg):
     sentence = tokenize(msg)
     X= bag_of_words(sentence,all_words)

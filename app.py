@@ -1,9 +1,12 @@
+#_______________________________________________________________________________________________________________________#
+# importing the necessary liberaries #
+
 import tkinter as tk
 from tkinter import messagebox
 from chat import get_response, bot_name
-from utils import speak, listen, identify_speaker, train_model, load_model
-import os
+from utils import speak, listen, identify_speaker, load_model
 
+#_______________________________________________________________________________________________________________________#
 # Define colors and fonts
 BG_COLOR = "#333333"  # Dark grey
 TEXT_COLOR = "#E1FFFF"  # Off white
@@ -11,19 +14,24 @@ BUTTON_COLOR = "#666666"  # Medium grey
 FONT = "Helvetica 14"
 FONT_BOLD = "Helvetica 13 bold"
 
+#_______________________________________________________________________________________________________________________#
 class ChatApplication:
+
+    #_______________________________________________________________________________________________________________________#
     def __init__(self):
         self.window = tk.Tk()
+        self.model = load_model('model.pkl') 
         self._setup_main_window()
-        self.model= load_model('model.pkl')
 
+    #_______________________________________________________________________________________________________________________#
     def run(self):
         self.window.mainloop()
 
+    #_______________________________________________________________________________________________________________________#
     def _setup_main_window(self):
-        self.window.title("Chat application")
+        self.window.title("SkikriBot application")
         self.window.resizable(width=False, height=False)
-        self.window.config(width=500, height=600, bg=BG_COLOR)
+        self.window.config(width=800, height=700, bg=BG_COLOR)
 
         # Head label
         head_label = tk.Label(self.window, bg=BG_COLOR, fg=TEXT_COLOR, text="Welcome to the Chat", font=FONT_BOLD, pady=20)
@@ -40,8 +48,8 @@ class ChatApplication:
         scrollbar.configure(command=self.text_widget.yview)
 
         # Bottom label
-        bottom_label = tk.Label(self.window, bg=BG_COLOR, height=80)
-        bottom_label.place(relwidth=1, rely=0.825)
+        bottom_label = tk.Label(self.window, bg=BG_COLOR, height=120)
+        bottom_label.place(relwidth=1, rely=0.75)
 
         # Message entry box
         self.msg_entry = tk.Entry(bottom_label, bg="#2C3E50", fg=TEXT_COLOR, font=FONT)
@@ -51,36 +59,43 @@ class ChatApplication:
 
         # Send button
         send_button = tk.Button(bottom_label, text="Send", font=FONT_BOLD, width=20, bg=BUTTON_COLOR, fg=TEXT_COLOR, command=lambda: self.send_message(None))
-        send_button.place(relx=0.77, rely=0.008, relheight=0.03, relwidth=0.22)
+        send_button.place(relx=0.77, rely=0.01, relheight=0.02, relwidth=0.22) 
 
         # Record button
         record_button = tk.Button(bottom_label, text="Record", font=FONT_BOLD, width=20, bg=BUTTON_COLOR, fg=TEXT_COLOR, command=self.record_message)
-        record_button.place(relx=0.77, rely=0.05, relheight=0.03, relwidth=0.22)
+        record_button.place(relx=0.77, rely=0.03, relheight=0.02, relwidth=0.22)
 
         # Identify Speaker button
-        identify_button = tk.Button(bottom_label, text="Identify Speaker", font=FONT_BOLD, width=20, bg=BUTTON_COLOR, fg=TEXT_COLOR, command=self.identify_speaker)
-        identify_button.place(relx=0.77, rely=0.10, relheight=0.03, relwidth=0.22)
+        identify_button = tk.Button(bottom_label, text="Identify Speaker", font=FONT_BOLD, width=20, bg=BUTTON_COLOR, fg=TEXT_COLOR, command=self.Identify_speakers)
+        identify_button.place(relx=0.77, rely=0.05, relheight=0.02, relwidth=0.22)
 
+
+    #_______________________________________________________________________________________________________________________#
     def send_message(self, event=None):
         msg = self.msg_entry.get()
-        if msg:
-            self._insert_message(msg, 'You')
-            response = get_response(msg)
-            self._insert_message(response, bot_name)
-            self.msg_entry.delete(0, END)
+        self._insert_message(msg, 'You')
+        response = get_response(msg)
+        self._insert_message(response, bot_name)
+        self.msg_entry.delete(0, tk.END)
+
+    #_______________________________________________________________________________________________________________________#
 
     def record_message(self):
         msg = listen()
-        if msg:
-            self._insert_message(msg, 'You')
-            response = get_response(msg)
-            self._insert_message(response, bot_name)
+        self._insert_message(msg, 'You')
+        response = get_response(msg)
+        self._insert_message(response, bot_name)
 
-    def identify_speaker(self):
-        # Assuming 'last_recorded_audio.wav' is the last recorded audio file
-        speaker = identify_speaker('last_recorded_audio.wav', self.model, self.label_names)
-        messagebox.showinfo("Identified Speaker", f"The last speaker was: {speaker}")
+    #_______________________________________________________________________________________________________________________#
+    def Identify_speakers(self):
+        try:
+            speaker = identify_speaker(self.model, 'last_recorded_audio.wav')
+            messagebox.showinfo("Identified Speaker", f"The last speaker was: {speaker}")
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
 
+
+    #____________________________________________________________________________________________________________________#
     def _insert_message(self, msg, sender):
         msg1 = f"{sender}: {msg}\n\n"
         self.text_widget.configure(state=tk.NORMAL)

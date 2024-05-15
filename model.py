@@ -1,7 +1,8 @@
-import torch
+#_______________________________________________________________________________________________________________________#
+# importing the necessary liberaries #
 import torch.nn as nn
 
-
+#_______________________________________________________________________________________________________________________#
 class Modeling(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(Modeling, self).__init__()
@@ -16,5 +17,4 @@ class Modeling(nn.Module):
         out = self.l2(out)
         out = self.relu(out)
         out = self.l3(out)
-        # no activation and no softmax at the end
         return out
