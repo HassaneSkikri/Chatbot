@@ -4,6 +4,8 @@
 
 VoiceBot is an advanced chat application designed to demonstrate integrated functionalities of modern chatbots including text-based chatting, voice commands, text-to-speech responses, and speaker identification. This project combines Python programming, natural language processing, machine learning, and digital signal processing to create a user-friendly chatbot capable of interacting with users through both text and voice.
 
+## screenshot of the VoiceBot
+![alt text](image-1.png)
 ## Features
 
 - **Text Chat**: Interact using typed text with responses generated from a trained model.
