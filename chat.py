@@ -53,6 +53,3 @@ def get_response(msg):
                 speak(response) 
                 return response
     return "I'm sorry, I didn't get that. Please try again."
-
-
-
